@@ -7,6 +7,11 @@ rabbitmq:
       - name: HA
       - pattern: '.*'
       - definition: '{"ha-mode": "all"}'
+    rabbitmq_policy_vhost1:
+      - name: HA
+      - pattern: '.*'
+      - definition: '{"ha-mode": "all"}'
+      - vhost: 'vhost1'
   vhost:
     virtual_host:
       - user: rabbit_user
@@ -34,5 +39,12 @@ rabbitmq:
           - '.*'
           - '.*'
       - runas: root
+  cluster:
+    host1:
+      - user: rabbit
+      - host: host1
+    host2:
+      - user: rabbit
+      - host: host2
 {#- vim:ft=sls
 -#}
