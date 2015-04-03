@@ -45,3 +45,17 @@ rabbitmq_vhost_{{ name }}:
     - require:
       - service: rabbitmq-server
 {% endfor %}
+
+{% for name, cluster in salt["pillar.get"]("rabbitmq:cluster", {}).iteritems() %}
+rabbit@{{ name }}:
+  rabbitmq_cluster.join:
+    - user: rabbit
+    {% for value in cluster %}
+    - {{ value }}
+    {% endfor %}
+{% endfor %}
+
+/var/lib/rabbitmq/.erlang.cookie:
+  file.managed:
+    - contents: {{ salt['pillar.get']('rabbitmq:cookie', 'EOKOWXQREETZSHFNTPEY') }}
+    - mode: 0400
