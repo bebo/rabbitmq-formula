@@ -2,6 +2,7 @@
 
 include:
   - .config
+  - .rsyslog
 
 rabbitmq-server:
   pkg.installed:
