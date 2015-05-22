@@ -10,6 +10,8 @@ rabbitmq-server:
   service:
     - running
     - enable: True
+    - require:
+      - pkg: rabbitmq-server
     - watch:
       - pkg: rabbitmq-server
 
